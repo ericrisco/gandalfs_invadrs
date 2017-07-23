@@ -1,6 +1,10 @@
 # GANDALF INVADERS - FAST FOSS GAME EUSKAL ENCOUNTER 2015
 
-Fast Foss Game Competition Euskal Encounter 25 - Made with Phaser.io
+SHOOT-EM-UP game, NyanCat vs Gandalf for the Fast Foss Game Competition of Euskal Encounter 25 - Made with http://phaser.io
+
+![alt text](https://raw.githubusercontent.com/eriscoand/gandalfs_invadrs/master/screen.PNG)
+
+A group of Epic Sax Guy Gandalf (https://www.youtube.com/watch?v=gy1B3agGNxw , https://www.youtube.com/watch?v=8Ep_aPSrwYI&t=3s) has invaded Euskal Encounter 25. Nyan Cat wants to kill them all! 
 
 ### Install instructions:
 
@@ -9,6 +13,13 @@ Fast Foss Game Competition Euskal Encounter 25 - Made with Phaser.io
 - Open the folder with a terminal
 - use --> npm install
 - open whith a browser http://localhost:25565/
+
+### Playing instructions
+
+- User direction right or left to move Nyan Cat
+- Try (if you can) to avoid the fortune cookies dropped by the Gandalf's army
+- Use space to shoot rainbows
+- Sometimes the Gandalf's army will drop Redbulls. It will give you extra live!
 
 ### Dependencies:
 
@@ -22,7 +33,7 @@ Fast Foss Game Competition Euskal Encounter 25 - Made with Phaser.io
 - Explosion sound: https://freesound.org/people/jeremysykes/sounds/344505/
 - Nyan cat sound: http://soundcloud.com/musicalwolfe/nyan-cat-8-bit-remix
 - Meow: https://freesound.org/people/steffcaffrey/sounds/262312/
-- Galleta de la fortuna cayendo: https://freesound.org/people/josecruz98/sounds/393006/
+- Drop sound: https://freesound.org/people/josecruz98/sounds/393006/
 - Gandalf sax music: http://ccmixter.org/files/stefsax/7786
 
 ## License MIT:
