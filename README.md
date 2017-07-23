@@ -15,7 +15,8 @@ A group of Epic Sax Guy Gandalf (https://www.youtube.com/watch?v=gy1B3agGNxw , h
 - Install NPM (https://www.npmjs.com/get-npm)
 - Clone this repo
 - Open the folder with a terminal
-- use --> npm install
+- write --> npm install
+- write --> gulp
 - open whith a browser http://localhost:25565/
 
 ### Playing instructions
