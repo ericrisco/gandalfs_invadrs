@@ -2,6 +2,10 @@
 
 SHOOT-EM-UP game, NyanCat vs Gandalf for the Fast Foss Game Competition of Euskal Encounter 25 - Made with http://phaser.io
 
+DEMO HERE (Loading might be slow, I must have to do a Loading View :D){:target="_blank"}
+
+### [DEMO HERE](https://ericrisco.com/invadrs/).
+
 ![alt text](https://raw.githubusercontent.com/eriscoand/gandalfs_invadrs/master/screen.PNG)
 
 A group of Epic Sax Guy Gandalf (https://www.youtube.com/watch?v=gy1B3agGNxw , https://www.youtube.com/watch?v=8Ep_aPSrwYI&t=3s) has invaded Euskal Encounter 25. Nyan Cat wants to kill them all! 
