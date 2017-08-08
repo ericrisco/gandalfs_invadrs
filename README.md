@@ -1,4 +1,4 @@
-# GANDALF INVADERS - FAST FOSS GAME EUSKAL ENCOUNTER 2015
+# GANDALF INVADERS - FAST FOSS GAME EUSKAL ENCOUNTER 2017
 
 SHOOT-EM-UP game, NyanCat vs Gandalf for the Fast Foss Game Competition of Euskal Encounter 25 - Made with http://phaser.io
 
