@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/rsc-bootstrap.mjs\" \"announce\" \"${CLAUDE_PROJECT_DIR}\" \"${CLAUDE_PROJECT_DIR}/.rsc/session-start.mjs\" \"${CLAUDE_PROJECT_DIR}/.rsc/suggest-always-on.md\" \"${CLAUDE_PROJECT_DIR}\""
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/rsc-bootstrap.mjs\" \"quiet\" \"${CLAUDE_PROJECT_DIR}\" \"${CLAUDE_PROJECT_DIR}/.rsc/worklog-checkpoint.mjs\" \"${CLAUDE_PROJECT_DIR}\""
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/rsc-bootstrap.mjs\" \"quiet\" \"${CLAUDE_PROJECT_DIR}\" \"${CLAUDE_PROJECT_DIR}/.rsc/worklog-checkpoint.mjs\" \"${CLAUDE_PROJECT_DIR}\""
+          }
+        ]
+      }
+    ]
+  }
+}
