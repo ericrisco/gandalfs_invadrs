@@ -14,8 +14,8 @@ A group of Epic Sax Guy Gandalf (https://www.youtube.com/watch?v=gy1B3agGNxw , h
 - Clone this repo
 - Open the folder with a terminal
 - write --> npm install
-- write --> gulp
-- open whith a browser http://localhost:25565/
+- write --> npm start
+- open with a browser http://localhost:25565/ (it reloads when you edit files)
 
 ### Playing instructions
 
@@ -28,7 +28,7 @@ A group of Epic Sax Guy Gandalf (https://www.youtube.com/watch?v=gy1B3agGNxw , h
 
 - Phaser.io (included in this repo)
 - NPM
-- Gulp
+- Browsersync (dev server)
 
 ### External Resources:
 
