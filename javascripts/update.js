@@ -6,10 +6,8 @@ function update () {
     restartGame();
   }
 
-  // Rainbow active?
-  if (fireButton.isDown && nyancat.alive) {
-    fireRainbow();
-  }
+  // Charged shot (a tap fires a rainbow on key down, see startCharge)
+  updateCharge();
 
   // Handle drops
   handleGalletitas();
@@ -19,5 +17,6 @@ function update () {
   game.physics.arcade.overlap(galletitas, nyancat, galletitaHitsNyan, null, this);
   game.physics.arcade.overlap(redbulls, nyancat, redbullHitsNyan, null, this);
   game.physics.arcade.overlap(rainbows, gandalfs, rainbowHitsGandalf, null, this);
+  game.physics.arcade.overlap(beams, gandalfs, beamHitsGandalf, null, this);
 
 }

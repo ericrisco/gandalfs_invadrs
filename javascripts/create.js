@@ -38,6 +38,16 @@ function create () {
   rainbows.setAll('checkWorldBounds', true);
   rainbows.setAll('outOfBoundsKill', true);
 
+  // Initialize charged shot (energy ball + piercing beams)
+  createBeamTextures();
+  beams = game.add.group();
+  beams.enableBody = true;
+  beams.physicsBodyType = Phaser.Physics.ARCADE;
+
+  energyBall = game.add.sprite(0, 0, createEnergyBallTexture());
+  energyBall.anchor.setTo(0.5, 0.5);
+  energyBall.visible = false;
+
   // Initialize gandalfs
   createGandalfs();
   animateGandalfs();
@@ -84,6 +94,8 @@ function create () {
   // Setup controls
   cursors = game.input.keyboard.createCursorKeys();
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  fireButton.onDown.add(startCharge, this);
+  fireButton.onUp.add(releaseCharge, this);
   restartButton = game.input.keyboard.addKey(Phaser.Keyboard.R);
 
   getHighScore();

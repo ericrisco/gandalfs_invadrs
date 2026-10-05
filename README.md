@@ -22,6 +22,7 @@ A group of Epic Sax Guy Gandalf (https://www.youtube.com/watch?v=gy1B3agGNxw , h
 - User direction right or left to move Nyan Cat
 - Try (if you can) to avoid the fortune cookies dropped by the Gandalf's army
 - Use space to shoot rainbows
+- Hold space to charge an energy ball (it shows up after 1 second). Release it after 3 to 10 seconds to fire a beam that goes through several Gandalfs: the longer you charge, the more it pierces (2 to 8)
 - Sometimes the Gandalf's army will drop Redbulls. It will give you extra live!
 
 ### Dependencies:

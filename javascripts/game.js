@@ -3,6 +3,16 @@ var game = new Phaser.Game(1024, 576, Phaser.AUTO, 'game', { preload: preload, c
 const initialGalletaGravity = 250;
 const stepGalletaGravity = 100;
 
+// Charged shot: hold SPACE to charge, release to fire a beam that pierces gandalfs
+const chargeShowTime = 1000,   // ms held before the energy ball shows up
+      chargeMinTime = 3000,    // ms held for the beam to fire
+      chargeMaxTime = 10000,   // ms held for full power
+      minBeamPierce = 2,
+      maxBeamPierce = 8;
+
+var chargeStart = 0,           // 0 = not charging
+    beamTextures = {};
+
 var rainbowTime = 0,
     initialPlayerPosition = 512;
     lives = 3,
@@ -67,6 +77,154 @@ function rainbowHitsGandalf (rainbow, gandalf) {
   explode(gandalf);
   score += addScore;
   updateScore();
+
+  if (gandalfs.countLiving() == 0) {
+    newWave();
+  }
+}
+
+function createEnergyBallTexture () {
+  const size = 64;
+  var bmd = game.add.bitmapData(size, size);
+  var gradient = bmd.context.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+
+  gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+  gradient.addColorStop(0.4, 'rgba(255, 0, 255, 0.9)');
+  gradient.addColorStop(1, 'rgba(0, 255, 255, 0)');
+  bmd.context.fillStyle = gradient;
+  bmd.context.fillRect(0, 0, size, size);
+  bmd.dirty = true;
+  bmd.render();
+  return bmd;
+}
+
+function createBeamTextures () {
+  const height = 140;
+
+  for (var pierce = minBeamPierce; pierce <= maxBeamPierce; pierce++) {
+    var width = beamWidth(pierce);
+    var bmd = game.add.bitmapData(width, height);
+    var gradient = bmd.context.createLinearGradient(0, 0, width, 0);
+
+    gradient.addColorStop(0, 'rgba(0, 255, 255, 0)');
+    gradient.addColorStop(0.25, 'rgba(255, 0, 255, 0.8)');
+    gradient.addColorStop(0.5, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(0.75, 'rgba(255, 0, 255, 0.8)');
+    gradient.addColorStop(1, 'rgba(0, 255, 255, 0)');
+    bmd.context.fillStyle = gradient;
+    bmd.context.fillRect(0, 0, width, height);
+    bmd.dirty = true;
+    bmd.render();
+    beamTextures[pierce] = bmd;
+  }
+}
+
+function beamWidth (pierce) {
+  return 16 + (pierce - minBeamPierce) * 8;
+}
+
+function startCharge () {
+  if (!nyancat.alive) {
+    return;
+  }
+  fireRainbow();
+  chargeStart = game.time.now;
+}
+
+function releaseCharge () {
+  if (chargeStart == 0) {
+    return;
+  }
+  var held = game.time.now - chargeStart;
+  cancelCharge();
+
+  if (held >= chargeMinTime && nyancat.alive) {
+    fireBeam(chargePower(held));
+  }
+}
+
+function cancelCharge () {
+  chargeStart = 0;
+  energyBall.visible = false;
+}
+
+// 0 at chargeMinTime, 1 at chargeMaxTime and beyond
+function chargePower (held) {
+  return Math.min(1, Math.max(0, (held - chargeMinTime) / (chargeMaxTime - chargeMinTime)));
+}
+
+function updateCharge () {
+  if (chargeStart == 0) {
+    return;
+  }
+  if (!nyancat.alive) {
+    cancelCharge();
+    return;
+  }
+
+  var held = game.time.now - chargeStart;
+  if (held < chargeShowTime) {
+    return;
+  }
+
+  var growth = Math.min(1, (held - chargeShowTime) / (chargeMaxTime - chargeShowTime));
+  energyBall.visible = true;
+  energyBall.x = nyancat.x;
+  energyBall.y = nyancat.y - 60;
+  energyBall.scale.setTo(0.3 + growth * 0.9, 0.3 + growth * 0.9);
+
+  if (held < chargeMinTime) {
+    // Not ready yet
+    energyBall.alpha = 0.4;
+  }
+  else if (held < chargeMaxTime) {
+    energyBall.alpha = 1;
+  }
+  else {
+    // Full power: blink
+    energyBall.alpha = Math.floor(held / 100) % 2 ? 1 : 0.5;
+  }
+}
+
+function fireBeam (power) {
+  const start = 20;
+  const velocity = -700;
+  var pierce = Math.round(minBeamPierce + power * (maxBeamPierce - minBeamPierce));
+
+  // Free beams that already left the screen or ran out of pierce
+  var deadBeams = [];
+  beams.forEachDead(function (beam) {
+    deadBeams.push(beam);
+  }, this);
+  deadBeams.forEach(function (beam) {
+    beam.destroy();
+  });
+
+  var beam = beams.create(nyancat.x, nyancat.y - start, beamTextures[pierce]);
+  beam.anchor.setTo(0.5, 1);
+  beam.checkWorldBounds = true;
+  beam.outOfBoundsKill = true;
+  beam.pierce = pierce;
+  beam.body.velocity.y = velocity;
+  beam.body.velocity.x = nyancat.body.velocity.x / 4;
+  meowSound.play();
+}
+
+function beamHitsGandalf (beam, gandalf) {
+  const addScore = 10;
+
+  if (!beam.alive) {
+    return;
+  }
+
+  explode(gandalf);
+  score += addScore;
+  updateScore();
+
+  beam.pierce -= 1;
+  if (beam.pierce <= 0) {
+    beam.kill();
+  }
 
   if (gandalfs.countLiving() == 0) {
     newWave();
